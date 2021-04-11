@@ -1,0 +1,71 @@
+{
+    "name": "@plurid/sereal",
+    "version": "0.0.0-0",
+    "description": "Real Serialization",
+    "keywords": [
+        "sereal",
+        "serialization"
+    ],
+    "author": "ly3xqhl8g9 <ly3xqhl8g9@plurid.com> (https://plurid.com)",
+    "license": "SEE LICENSE IN LICENSE",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plurid/sereal"
+    },
+    "bugs": {
+        "email": "source@plurid.com",
+        "url": "https://github.com/plurid/sereal/issues"
+    },
+    "homepage": "https://github.com/plurid/sereal/blob/master/packages/sereal-javascript",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    },
+    "files": [
+        "distribution"
+    ],
+    "main": "distribution/index.js",
+    "module": "distribution/index.es.js",
+    "typings": "distribution/index.d.ts",
+    "engines": {
+        "node": ">=12",
+        "npm": ">=6"
+    },
+    "scripts": {
+        "clean": "rm -rf ./distribution",
+        "clean.tests": "find ./distribution -type d -name \"__tests__\" -prune -exec rm -rf {} +",
+        "clean.performance": "find ./distribution -type d -name \"__performance__\" -prune -exec rm -rf {} +",
+        "test": "jest ./source --config ./configurations/jest.config.js --rootDir ./",
+        "lint": "eslint -c ./configurations/.eslintrc.js ./source --ext .ts,.tsx",
+        "start": "yarn clean && rollup -c ./scripts/rollup.config.js -w --environment ENV_MODE:local",
+        "build.local": "yarn clean && rollup -c ./scripts/rollup.config.js --environment ENV_MODE:local",
+        "build.development": "yarn clean && rollup -c ./scripts/rollup.config.js --environment ENV_MODE:development",
+        "build.production": "yarn clean && rollup -c ./scripts/rollup.config.js --environment ENV_MODE:production",
+        "build": "yarn lint && yarn test && yarn build.production && yarn clean.tests && yarn clean.performance",
+        "prepublishOnly": "yarn build"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^17.1.0",
+        "@types/jest": "^26.0.21",
+        "@types/node": "^14.14.35",
+        "@types/react": "^17.0.3",
+        "@types/rollup-plugin-sourcemaps": "^0.4.2",
+        "@typescript-eslint/eslint-plugin": "^4.18.0",
+        "@typescript-eslint/parser": "^4.18.0",
+        "@zerollup/ts-transform-paths": "^1.7.18",
+        "coveralls": "^3.1.0",
+        "eslint": "^7.22.0",
+        "jest": "^26.6.3",
+        "jest-config": "^26.6.3",
+        "react": "^17.0.1",
+        "rollup": "^2.42.1",
+        "rollup-plugin-sourcemaps": "^0.6.3",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "^0.30.0",
+        "ts-jest": "^26.5.4",
+        "ts-node": "^9.1.1",
+        "ttypescript": "^1.5.12",
+        "typescript": "^4.2.3",
+        "typescript-transform-paths": "^2.2.3"
+    }
+}
