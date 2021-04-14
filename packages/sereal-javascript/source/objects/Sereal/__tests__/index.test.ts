@@ -51,12 +51,24 @@ describe('Sereal', () => {
             },
         });
 
-        console.log(sereal.extract());
-
         someSereal.increase();
         someSereal.increase();
 
-        console.log(sereal.extract());
+        const extract = sereal.extract();
+        expect(extract.someSereal.value).toEqual(25);
+
+
+        const someOtherSereal = new SomeSereal();
+        const anotherSereal = new Sereal();
+        anotherSereal.step({
+            someSereal: {
+                class: SomeSereal,
+                current: someOtherSereal,
+            },
+        });
+        expect(anotherSereal.extract().someSereal.value).toEqual(23);
+        anotherSereal.load(extract);
+        expect(anotherSereal.extract().someSereal.value).toEqual(25);
 
         expect(true).toBeTruthy();
     });
