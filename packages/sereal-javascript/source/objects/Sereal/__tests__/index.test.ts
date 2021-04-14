@@ -42,7 +42,7 @@ describe('Sereal', () => {
         sereal.step({
             one: '2',
         });
-        console.log(sereal.extract());
+        expect(sereal.extract().one).toEqual('2');
 
         sereal.step({
             someSereal: {
