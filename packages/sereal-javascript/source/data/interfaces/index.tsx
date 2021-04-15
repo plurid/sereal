@@ -11,7 +11,7 @@ export interface SerealObjectStored<C> {
 
 
 export interface SerealSign {
-    object: Object;
+    object: any;
     fields: string[];
 }
 

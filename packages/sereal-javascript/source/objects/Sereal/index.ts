@@ -53,17 +53,13 @@ class Sereal<S = any> {
             return;
         }
 
-        const serialization: any = this.extractLoop(this.state);
-
-        return serialization;
+        return this.extractLoop(this.state);
     }
 
     public load(
         state: any,
     ) {
-        const newState: any = this.loadLoop(state);
-
-        this.state = newState;
+        this.state = this.loadLoop(state);
     }
 
 
@@ -79,24 +75,45 @@ class Sereal<S = any> {
 
     private extractLoop(
         state: any,
+        lineage: string = '',
     ) {
         const serialization: any = {};
 
         for (const item of Object.entries(state)) {
             const [key, value]: [string, any] = item;
+            const currentField = lineage
+                ? `${lineage}.${key}`
+                : key;
 
             if (
-                value.class
-                && value.current
+                this.signature
+                && this.signedFields
+                && this.signedFields[currentField]
             ) {
-                serialization[key] = value.current.toSereal();
+                const serealObjectName = this.signedFields[currentField];
+                const SerealObject = this.signature[serealObjectName].object;
+
+                if (value instanceof SerealObject) {
+                    if (value.toSereal) {
+                        serialization[key] = value.toSereal();
+                    } else {
+                        throw `${currentField} is not a Serealable Object. The 'toSereal()' function is not implemented on ${serealObjectName}.`;
+                    }
+                } else {
+                    throw `${currentField} is not an instance of ${serealObjectName}.`
+                }
+
                 continue;
             }
 
             if (
                 typeof value === 'object'
             ) {
-                serialization[key] = this.extractLoop(value);
+                serialization[key] = this.extractLoop(
+                    value,
+                    `${lineage}.${key}`,
+                );
+
                 continue;
             }
 
@@ -108,25 +125,48 @@ class Sereal<S = any> {
 
     private loadLoop(
         state: any,
+        lineage: string = '',
     ) {
         const newState: any = {};
 
-        // TODO recursive loop
         for (const item of Object.entries(state)) {
             const [key, value]: [string, any] = item;
+            const currentField = lineage
+                ? `${lineage}.${key}`
+                : key;
 
             if (
                 this.state
                 && this.state[key]
             ) {
                 if (
-                    this.state[key].class && this.state[key].current
+                    this.signature
+                    && this.signedFields
+                    && this.signedFields[currentField]
                 ) {
-                    newState[key] = new this.state[key].class();
-                    newState[key].loadSereal(value);
+                    const serealObjectName = this.signedFields[currentField];
+                    const SerealObject = this.signature[serealObjectName].object;
+                    const serealObject = new SerealObject();
+
+                    if (serealObject.loadSereal) {
+                        serealObject.loadSereal(value);
+                        newState[key] = serealObject;
+                    } else {
+                        throw `${currentField} is not a Serealable Object. The 'loadSereal()' function is not implemented on ${serealObjectName}.`;
+                    }
+
+                    continue;
                 }
 
-                continue;
+                if (
+                    typeof value === 'object'
+                ) {
+                    newState[key] = this.loadLoop(
+                        value,
+                        `${lineage}.${key}`,
+                    );
+                    continue;
+                }
             }
 
             newState[key] = value;
