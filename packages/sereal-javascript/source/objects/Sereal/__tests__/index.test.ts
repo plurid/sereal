@@ -75,7 +75,7 @@ describe('Sereal', () => {
         const someOtherSereal = new SomeSereal();
         const someOtherNestedSereal = new SomeSereal();
         const anotherSereal = new Sereal();
-        sereal.sign({
+        anotherSereal.sign({
             SomeSereal: {
                 object: SomeSereal,
                 fields: [
@@ -93,7 +93,7 @@ describe('Sereal', () => {
             },
         });
         expect(anotherSereal.extract().someSereal.value).toEqual(23);
-        anotherSereal.load(extract);
+        anotherSereal.intract(extract);
         expect(anotherSereal.extract().someSereal.value).toEqual(25);
 
         expect(true).toBeTruthy();

@@ -56,10 +56,10 @@ class Sereal<S = any> {
         return this.extractLoop(this.state);
     }
 
-    public load(
+    public intract(
         state: any,
     ) {
-        this.state = this.loadLoop(state);
+        this.state = this.intractLoop(state);
     }
 
 
@@ -123,7 +123,7 @@ class Sereal<S = any> {
         return serialization;
     }
 
-    private loadLoop(
+    private intractLoop(
         state: any,
         lineage: string = '',
     ) {
@@ -161,7 +161,7 @@ class Sereal<S = any> {
                 if (
                     typeof value === 'object'
                 ) {
-                    newState[key] = this.loadLoop(
+                    newState[key] = this.intractLoop(
                         value,
                         `${lineage}.${key}`,
                     );
