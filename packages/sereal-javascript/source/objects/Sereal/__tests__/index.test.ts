@@ -33,21 +33,35 @@ describe('Sereal', () => {
             }
         }
 
-        const someSereal = new SomeSereal();
 
         const sereal = new Sereal({
             one: '1',
         });
+        expect(sereal.extract().one).toEqual('1');
 
         sereal.step({
             one: '2',
         });
         expect(sereal.extract().one).toEqual('2');
 
+        const someSereal = new SomeSereal();
+        const someNestedSereal = new SomeSereal();
+
+        sereal.sign({
+            SomeSereal: {
+                object: SomeSereal,
+                fields: [
+                    'someSereal',
+                    'some.nested.sereal',
+                ],
+            },
+        });
         sereal.step({
-            someSereal: {
-                class: SomeSereal,
-                current: someSereal,
+            someSereal: someSereal,
+            some: {
+                nested: {
+                    sereal: someNestedSereal,
+                },
             },
         });
 
@@ -59,11 +73,23 @@ describe('Sereal', () => {
 
 
         const someOtherSereal = new SomeSereal();
+        const someOtherNestedSereal = new SomeSereal();
         const anotherSereal = new Sereal();
+        sereal.sign({
+            SomeSereal: {
+                object: SomeSereal,
+                fields: [
+                    'someSereal',
+                    'some.nested.sereal',
+                ],
+            },
+        });
         anotherSereal.step({
-            someSereal: {
-                class: SomeSereal,
-                current: someOtherSereal,
+            someSereal: someOtherSereal,
+            some: {
+                nested: {
+                    sereal: someOtherNestedSereal,
+                },
             },
         });
         expect(anotherSereal.extract().someSereal.value).toEqual(23);

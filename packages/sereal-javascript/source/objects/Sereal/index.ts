@@ -1,17 +1,41 @@
+// #region imports
+    // #region external
+    import {
+        SerealSignRecord,
+        SerealSignedFields,
+    } from '../../data/interfaces';
+    // #endregion external
+// #endregion imports
+
+
+
 // #region methods
 class Sereal<S = any> {
     private state: S | undefined;
     private history: S[] = [];
+    private signature: SerealSignRecord | undefined;
+    private signedFields: SerealSignedFields | undefined;
 
 
     constructor(
-        initial?: any,
+        initialState?: any,
+        signature?: SerealSignRecord,
     ) {
-        if (initial) {
-            this.state = initial;
+        this.state = initialState;
+
+        if (signature) {
+            this.signature = signature;
+            this.signedFields = this.computeSignedFields(signature);
         }
     }
 
+
+    public sign(
+        signature: SerealSignRecord,
+    ) {
+        this.signature = signature;
+        this.signedFields = this.computeSignedFields(signature);
+    }
 
     public step(
         state: S,
@@ -21,10 +45,7 @@ class Sereal<S = any> {
             this.history.push(this.state);
         }
 
-        // deep assignment / object merge
-        this.state = {
-            ...state,
-        };
+        this.state = this.assign(state);
     }
 
     public extract() {
@@ -32,13 +53,50 @@ class Sereal<S = any> {
             return;
         }
 
+        const serialization: any = this.extractLoop(this.state);
+
+        return serialization;
+    }
+
+    public load(
+        state: any,
+    ) {
+        const newState: any = this.loadLoop(state);
+
+        this.state = newState;
+    }
+
+
+
+    private assign(
+        obj: any,
+    ) {
+        // deep assignment / object merge
+        return {
+            ...obj,
+        };
+    }
+
+    private extractLoop(
+        state: any,
+    ) {
         const serialization: any = {};
 
-        for (const [key, value] of Object.entries(this.state)) {
+        for (const item of Object.entries(state)) {
+            const [key, value]: [string, any] = item;
+
             if (
-                value.class && value.current
+                value.class
+                && value.current
             ) {
                 serialization[key] = value.current.toSereal();
+                continue;
+            }
+
+            if (
+                typeof value === 'object'
+            ) {
+                serialization[key] = this.extractLoop(value);
                 continue;
             }
 
@@ -48,16 +106,18 @@ class Sereal<S = any> {
         return serialization;
     }
 
-    public load(
+    private loadLoop(
         state: any,
     ) {
         const newState: any = {};
 
-        for (const [key, v] of Object.entries(state)) {
-            const value: any = v;
+        // TODO recursive loop
+        for (const item of Object.entries(state)) {
+            const [key, value]: [string, any] = item;
 
             if (
-                this.state && this.state[key]
+                this.state
+                && this.state[key]
             ) {
                 if (
                     this.state[key].class && this.state[key].current
@@ -72,7 +132,21 @@ class Sereal<S = any> {
             newState[key] = value;
         }
 
-        this.state = newState;
+        return newState;
+    }
+
+    private computeSignedFields(
+        signature: SerealSignRecord,
+    ) {
+        const signedFields: SerealSignedFields = {};
+
+        for (const [key, value] of Object.entries(signature)) {
+            for (const field of value.fields) {
+                signedFields[field] = key;
+            }
+        }
+
+        return signedFields;
     }
 }
 // #endregion methods
