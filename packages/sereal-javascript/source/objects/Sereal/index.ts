@@ -3,7 +3,7 @@
     import {
         SerealSignRecord,
         SerealSignedFields,
-    } from '../../data/interfaces';
+    } from '~data/interfaces';
     // #endregion external
 // #endregion imports
 

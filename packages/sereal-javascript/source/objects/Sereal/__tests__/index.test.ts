@@ -2,7 +2,7 @@
     // #region external
     import {
         SerealableObject,
-    } from '../../../data/interfaces';
+    } from '~data/interfaces';
 
     import Sereal from '../';
     // #endregion external

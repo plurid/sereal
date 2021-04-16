@@ -1,12 +1,7 @@
 // #region module
-export interface SerealableObject<S> {
+export interface SerealableObject<S = any> {
     toSereal(): S;
     loadSereal(state: S): void;
-}
-
-export interface SerealObjectStored<C> {
-    class: C;
-    current: SerealableObject<C>;
 }
 
 
