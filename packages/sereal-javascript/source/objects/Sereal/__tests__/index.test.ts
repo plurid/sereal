@@ -13,7 +13,7 @@
 // #region module
 describe('Sereal', () => {
     it('works', () => {
-        class SomeSereal implements SerealableObject<any> {
+        class SomeSereal implements SerealableObject<{ value: number; }> {
             private value = 23;
 
             public increase() {
