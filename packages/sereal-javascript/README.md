@@ -30,6 +30,129 @@
 
 ## About
 
+`sereal` provides utility for the serialization of regular primitives (such as boolean, number, string), and also for the serialization of objects.
+
+In order for an object to be serialized with `sereal` it must be a `serealable object`, that is, it must implement the interface
+
+``` typescript
+interface SerealableObject<S = any> {
+    toSereal(): S;
+    loadSereal(state: S): void;
+}
+```
+
+The `toSereal()` and `loadSereal()` methods will be used by `Sereal` to serialize and instantiate the serealable object.
+
+
+
+## Install
+
+To install run
+
+``` bash
+npm install @plurid/sereal
+```
+
+or
+
+``` bash
+yarn add @plurid/sereal
+```
+
+
+
+## Usage
+
+
+``` typescript
+import Sereal, {
+    SerealableObject,
+} from '@plurid/sereal';
+
+
+class SomeSereal implements SerealableObject<any> {
+    private value = 23;
+
+    public increase() {
+        this.value += 1;
+    }
+
+    public toSereal() {
+        return {
+            value: this.value,
+        };
+    }
+
+    public loadSereal(
+        state: any,
+    ) {
+        this.value = state.value;
+    }
+}
+
+const main = () => {
+    const sereal = new Sereal();
+
+    sereal.sign({
+        SomeSereal: {
+            object: SomeSereal,
+            fields: [
+                'someSereal',
+                'some.nested.sereal',
+            ],
+        },
+    });
+
+    const someSereal = new SomeSereal();
+    const someNestedSereal = new SomeSereal();
+
+    sereal.step({
+        someSereal: someSereal,
+        some: {
+            nested: {
+                sereal: someNestedSereal,
+            },
+        },
+    });
+
+    someSereal.increase();
+    someSereal.increase();
+
+    // `extract` contains the serealized value
+    // {
+    //     someSereal: {
+    //         value: 25,
+    //     },
+    //     some: {
+    //         nested: {
+    //             sereal: {
+    //                 value: 23,
+    //             },
+    //         },
+    //     },
+    // }
+    const extract = sereal.extract();
+
+    const anotherSereal = new Sereal();
+    anotherSereal.sign({
+        SomeSereal: {
+            object: SomeSereal,
+            fields: [
+                'someSereal',
+                'some.nested.sereal',
+            ],
+        },
+    });
+
+    // `intract` injects the `sereal` `extract` into the `anotherSereal`
+    anotherSereal.intract(extract);
+
+    // `anotherSereal` has the same state as `sereal`
+    const extractAnotherSereal = anotherSereal.extract();
+}
+
+main();
+```
 
 
 
