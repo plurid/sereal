@@ -23,6 +23,8 @@
 ### Contents
 
 + [About](#about)
++ [Install](#install)
++ [Usage](#usage)
 + [Packages](#packages)
 + [Codeophon](#codeophon)
 
