@@ -1,7 +1,7 @@
 {
     "name": "@plurid/sereal",
     "version": "0.0.0-0",
-    "description": "Real Serialization",
+    "description": "Real (Values and Objects) Serialization",
     "keywords": [
         "sereal",
         "serialization"
