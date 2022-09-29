@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@rollup/plugin-commonjs': ^22.0.2
-  '@types/jest': ^29.0.3
+  '@types/jest': ^29.1.0
   '@types/node': ^18.7.23
   '@types/react': ^18.0.21
   '@types/rollup-plugin-sourcemaps': ^0.4.2
@@ -18,7 +18,7 @@ specifiers:
   rollup-plugin-sourcemaps: ^0.6.3
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-typescript2: ^0.34.0
-  ts-jest: ^29.0.2
+  ts-jest: ^29.0.3
   ts-node: ^10.9.1
   ttypescript: ^1.5.13
   typescript: ^4.8.4
@@ -26,7 +26,7 @@ specifiers:
 
 devDependencies:
   '@rollup/plugin-commonjs': 22.0.2_rollup@2.79.1
-  '@types/jest': 29.0.3
+  '@types/jest': 29.1.0
   '@types/node': 18.7.23
   '@types/react': 18.0.21
   '@types/rollup-plugin-sourcemaps': 0.4.2
@@ -42,7 +42,7 @@ devDependencies:
   rollup-plugin-sourcemaps: 0.6.3_76t3gjied4e3s43axlotm2p4ke
   rollup-plugin-terser: 7.0.2_rollup@2.79.1
   rollup-plugin-typescript2: 0.34.0_gypgyaqhine6mwjfvh7icfhviq
-  ts-jest: 29.0.2_jufvdtndqxutuniyhglngh7btq
+  ts-jest: 29.0.3_jufvdtndqxutuniyhglngh7btq
   ts-node: 10.9.1_gbhfbbeqrol7fxixnzbkbuanxe
   ttypescript: 1.5.13_mwhvu7sfp6vq5ryuwb6hlbjfka
   typescript: 4.8.4
@@ -867,8 +867,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/29.0.3:
-    resolution: {integrity: sha512-F6ukyCTwbfsEX5F2YmVYmM5TcTHy1q9P5rWlRbrk56KyMh3v9xRGUO3aa8+SkvMi0SHXtASJv1283enXimC0Og==}
+  /@types/jest/29.1.0:
+    resolution: {integrity: sha512-CqlKkMNaUhFSRvqVKniNhbcy9fc/Rj2cmFD5t8Jtu4HlHzSit27h7XKfP5kkxBeROQ8WAvQQmy93FIz9or8jKg==}
     dependencies:
       expect: 29.1.0
       pretty-format: 29.1.0
@@ -3378,8 +3378,8 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /ts-jest/29.0.2_jufvdtndqxutuniyhglngh7btq:
-    resolution: {integrity: sha512-P03IUItnAjG6RkJXtjjD5pu0TryQFOwcb1YKmW63rO19V0UFqL3wiXZrmR5D7qYjI98btzIOAcYafLZ0GHAcQg==}
+  /ts-jest/29.0.3_jufvdtndqxutuniyhglngh7btq:
+    resolution: {integrity: sha512-Ibygvmuyq1qp/z3yTh9QTwVVAbFdDy/+4BtIQR2sp6baF2SJU/8CKK/hhnGIDY2L90Az2jIqTwZPnN2p+BweiQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
     peerDependencies:
