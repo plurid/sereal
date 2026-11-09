@@ -5,6 +5,6 @@
         "declaration": false,
         "erasableSyntaxOnly": false
     },
-    "include": ["source", "scripts", "tsdown.config.ts", "vitest.config.ts"],
+    "include": ["source", "tsdown.config.ts", "vitest.config.ts"],
     "exclude": []
 }

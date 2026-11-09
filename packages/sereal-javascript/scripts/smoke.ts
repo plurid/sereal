@@ -34,7 +34,7 @@ class Money {
 
 const MoneyType = defineType(Money, {
     name: 'smoke.Money',
-    encode: (m) => m.cents.toString(),
+    encode: (m: Money) => m.cents.toString(),
     decode: (s: string) => new Money(BigInt(s)),
 });
 
