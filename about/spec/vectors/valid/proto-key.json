@@ -1,0 +1,14 @@
+{
+    "description": "__proto__ is plain data",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "__proto__key": 1,
+            "nested": {
+                "__proto__": {
+                    "polluted": true
+                }
+            }
+        }
+    }
+}

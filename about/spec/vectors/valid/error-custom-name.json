@@ -1,0 +1,13 @@
+{
+    "description": "error with non-standard name",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "error",
+            "v": {
+                "name": "ValidationError",
+                "message": "bad input"
+            }
+        }
+    }
+}

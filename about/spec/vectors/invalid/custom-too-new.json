@@ -1,0 +1,11 @@
+{
+    "description": "custom payload newer than registered",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@3",
+            "v": {}
+        }
+    },
+    "error": "VERSION_TOO_NEW"
+}

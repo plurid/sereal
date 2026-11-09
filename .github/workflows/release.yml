@@ -1,0 +1,42 @@
+name: release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          registry-url: "https://registry.npmjs.org"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify and build
+        run: |
+          pnpm check.ci
+          pnpm typecheck
+          pnpm test
+          pnpm build
+
+      - name: Publish to npm (trusted publishing)
+        run: pnpm -C packages/sereal-javascript publish --no-git-checks --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to JSR
+        run: npx jsr publish
+        working-directory: packages/sereal-javascript

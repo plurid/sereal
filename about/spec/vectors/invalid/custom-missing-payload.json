@@ -1,0 +1,10 @@
+{
+    "description": "custom node without payload",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@2"
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

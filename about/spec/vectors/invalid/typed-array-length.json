@@ -1,0 +1,11 @@
+{
+    "description": "payload not a multiple of element size",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "u32",
+            "v": "AQID"
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

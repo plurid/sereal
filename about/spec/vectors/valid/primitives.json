@@ -1,0 +1,14 @@
+{
+    "description": "JSON primitives pass through",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "s": "text",
+            "n": 1.5,
+            "i": -3,
+            "t": true,
+            "f": false,
+            "z": null
+        }
+    }
+}

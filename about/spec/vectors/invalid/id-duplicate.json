@@ -1,0 +1,19 @@
+{
+    "description": "duplicate id",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "array",
+                "id": 1,
+                "v": []
+            },
+            {
+                "$": "array",
+                "id": 1,
+                "v": []
+            }
+        ]
+    },
+    "error": "INVALID_DOCUMENT"
+}

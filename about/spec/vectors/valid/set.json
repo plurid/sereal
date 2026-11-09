@@ -1,0 +1,18 @@
+{
+    "description": "set of mixed values",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "set",
+            "v": [
+                "a",
+                1,
+                null,
+                {
+                    "$": "bigint",
+                    "v": "7"
+                }
+            ]
+        }
+    }
+}

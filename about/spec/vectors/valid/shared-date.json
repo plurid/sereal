@@ -1,0 +1,17 @@
+{
+    "description": "leaf values can be shared",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "date",
+                "id": 1,
+                "v": "2026-01-01T00:00:00.000Z"
+            },
+            {
+                "$": "ref",
+                "v": 1
+            }
+        ]
+    }
+}

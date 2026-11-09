@@ -1,0 +1,9 @@
+{
+    "description": "unknown envelope member",
+    "document": {
+        "$sereal": 1,
+        "root": 1,
+        "meta": {}
+    },
+    "error": "INVALID_DOCUMENT"
+}

@@ -1,0 +1,12 @@
+{
+    "description": "tagged node with extra member",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "bigint",
+            "v": "1",
+            "extra": true
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

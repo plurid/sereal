@@ -1,0 +1,27 @@
+{
+    "description": "map with non-string keys",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "map",
+            "v": [
+                [1, "one"],
+                [
+                    {
+                        "k": true
+                    },
+                    {
+                        "$": "set",
+                        "v": [1, 2]
+                    }
+                ],
+                [
+                    {
+                        "$": "undefined"
+                    },
+                    null
+                ]
+            ]
+        }
+    }
+}

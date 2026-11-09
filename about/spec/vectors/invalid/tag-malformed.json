@@ -1,0 +1,11 @@
+{
+    "description": "malformed custom tag",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "Point@0",
+            "v": {}
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

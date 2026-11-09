@@ -1,0 +1,17 @@
+{
+    "description": "custom payload is a node",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@2",
+            "v": {
+                "x": {
+                    "$": "-0"
+                },
+                "y": {
+                    "$": "inf"
+                }
+            }
+        }
+    }
+}

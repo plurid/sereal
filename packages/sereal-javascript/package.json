@@ -1,16 +1,27 @@
 {
     "name": "@plurid/sereal",
-    "version": "0.0.0-0",
+    "version": "1.0.0",
     "description": "Real (Values and Objects) Serialization",
     "keywords": [
         "sereal",
-        "serialization"
+        "serialization",
+        "serializer",
+        "json",
+        "class",
+        "temporal",
+        "bigint",
+        "map",
+        "set",
+        "cycles",
+        "migrations",
+        "standard-schema"
     ],
     "author": "ly3xqhl8g9 <ly3xqhl8g9@plurid.com> (https://plurid.com)",
     "license": "SEE LICENSE IN LICENSE",
     "repository": {
         "type": "git",
-        "url": "https://github.com/plurid/sereal"
+        "url": "git+https://github.com/plurid/sereal.git",
+        "directory": "packages/sereal-javascript"
     },
     "bugs": {
         "email": "source@plurid.com",
@@ -19,53 +30,49 @@
     "homepage": "https://github.com/plurid/sereal/blob/master/packages/sereal-javascript",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
-        "access": "public"
+        "access": "public",
+        "provenance": true
+    },
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./timeline": {
+            "types": "./dist/timeline.d.ts",
+            "default": "./dist/timeline.js"
+        },
+        "./package.json": "./package.json"
     },
     "files": [
-        "distribution"
+        "dist",
+        "source",
+        "!source/**/__tests__"
     ],
-    "main": "distribution/index.js",
-    "module": "distribution/index.es.js",
-    "typings": "distribution/index.d.ts",
     "engines": {
-        "node": ">=12",
-        "npm": ">=6"
+        "node": ">=22.12"
     },
     "scripts": {
-        "clean": "rm -rf ./distribution",
-        "clean.tests": "find ./distribution -type d -name \"__tests__\" -prune -exec rm -rf {} +",
-        "clean.performance": "find ./distribution -type d -name \"__performance__\" -prune -exec rm -rf {} +",
-        "test": "jest ./source --config ./configurations/jest.config.js --rootDir ./",
-        "lint": "eslint -c ./configurations/.eslintrc.js ./source --ext .ts,.tsx",
-        "start": "yarn clean && rollup -c ./scripts/rollup.config.js -w --environment ENV_MODE:local",
-        "build.local": "yarn clean && rollup -c ./scripts/rollup.config.js --environment ENV_MODE:local",
-        "build.development": "yarn clean && rollup -c ./scripts/rollup.config.js --environment ENV_MODE:development",
-        "build.production": "yarn clean && rollup -c ./scripts/rollup.config.js --environment ENV_MODE:production",
-        "build": "yarn lint && yarn test && yarn build.production && yarn clean.tests && yarn clean.performance",
-        "prepublishOnly": "yarn build"
+        "build": "tsdown",
+        "test": "vitest run",
+        "test.watch": "vitest",
+        "test.coverage": "vitest run --coverage",
+        "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+        "smoke": "node scripts/smoke.ts",
+        "smoke.all": "node scripts/smoke.ts && bun scripts/smoke.ts && deno run --allow-read scripts/smoke.ts",
+        "prepublishOnly": "pnpm typecheck && pnpm test && pnpm build"
     },
     "devDependencies": {
-        "@rollup/plugin-commonjs": "^24.1.0",
-        "@rollup/plugin-terser": "^0.4.1",
-        "@types/jest": "^29.5.1",
-        "@types/node": "^18.16.1",
-        "@types/react": "^18.2.0",
-        "@types/rollup-plugin-sourcemaps": "^0.4.2",
-        "@typescript-eslint/eslint-plugin": "^5.59.1",
-        "@typescript-eslint/parser": "^5.59.1",
-        "@zerollup/ts-transform-paths": "^1.7.18",
-        "coveralls": "^3.1.1",
-        "eslint": "^8.39.0",
-        "jest": "^29.5.0",
-        "jest-config": "^29.5.0",
-        "react": "^18.2.0",
-        "rollup": "^3.21.0",
-        "rollup-plugin-sourcemaps": "^0.6.3",
-        "rollup-plugin-typescript2": "^0.34.1",
-        "ts-jest": "^29.1.0",
-        "ts-node": "^10.9.1",
-        "ttypescript": "^1.5.15",
-        "typescript": "^5.0.4",
-        "typescript-transform-paths": "^3.4.6"
+        "@arethetypeswrong/core": "^0.18.5",
+        "@types/node": "^26.6.6",
+        "@vitest/coverage-v8": "^5.1.0",
+        "fast-check": "^4.10.2",
+        "publint": "^0.3.25",
+        "tsdown": "^0.23.7",
+        "typescript": "^7.0.2",
+        "valibot": "^1.5.0",
+        "vitest": "^5.1.0"
     }
 }

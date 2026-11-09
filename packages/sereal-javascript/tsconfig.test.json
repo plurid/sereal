@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "isolatedDeclarations": false,
+        "declaration": false,
+        "erasableSyntaxOnly": false
+    },
+    "include": ["source", "scripts", "tsdown.config.ts", "vitest.config.ts"],
+    "exclude": []
+}

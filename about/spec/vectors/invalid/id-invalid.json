@@ -1,0 +1,12 @@
+{
+    "description": "non-positive id",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "array",
+            "id": 0,
+            "v": []
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

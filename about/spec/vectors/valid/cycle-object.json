@@ -1,0 +1,17 @@
+{
+    "description": "object containing itself",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "object",
+            "id": 1,
+            "v": {
+                "name": "loop",
+                "self": {
+                    "$": "ref",
+                    "v": 1
+                }
+            }
+        }
+    }
+}

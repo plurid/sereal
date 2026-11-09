@@ -1,0 +1,15 @@
+{
+    "description": "error with unknown member",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "error",
+            "v": {
+                "name": "Error",
+                "message": "x",
+                "code": "E1"
+            }
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

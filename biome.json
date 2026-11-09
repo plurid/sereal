@@ -1,0 +1,75 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.6.6/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "includes": ["**", "!**/dist", "!**/coverage", "!**/pnpm-lock.yaml", "!about/identity"]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 100,
+        "lineEnding": "lf"
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "trailingCommas": "all",
+            "semicolons": "always",
+            "arrowParentheses": "always"
+        }
+    },
+    "json": {
+        "formatter": {
+            "indentWidth": 4
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "complexity": {
+                "noBannedTypes": "error"
+            },
+            "style": {
+                "useImportType": "error",
+                "useExportType": "error",
+                "useNodejsImportProtocol": "error",
+                "noParameterAssign": "error"
+            },
+            "suspicious": {
+                "noExplicitAny": "warn"
+            }
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "off"
+            }
+        }
+    },
+    "overrides": [
+        {
+            "includes": ["**/*.yaml", "**/*.yml"],
+            "formatter": {
+                "indentWidth": 2
+            }
+        },
+        {
+            "includes": ["**/__tests__/**", "**/fixtures.ts", "**/scripts/**"],
+            "linter": {
+                "rules": {
+                    "suspicious": {
+                        "noExplicitAny": "off"
+                    }
+                }
+            }
+        }
+    ]
+}

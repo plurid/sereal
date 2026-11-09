@@ -1,0 +1,11 @@
+{
+    "description": "relative URL",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "url",
+            "v": "/relative"
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

@@ -1,0 +1,26 @@
+{
+    "name": "sereal-workspace",
+    "private": true,
+    "type": "module",
+    "packageManager": "pnpm@11.3.0",
+    "devEngines": {
+        "runtime": {
+            "name": "node",
+            "version": ">=26",
+            "onFail": "warn"
+        }
+    },
+    "scripts": {
+        "check": "biome check .",
+        "check.ci": "biome ci .",
+        "format": "biome check --write .",
+        "typecheck": "pnpm -r typecheck",
+        "test": "pnpm -r test",
+        "build": "pnpm -r build",
+        "smoke": "pnpm -r smoke",
+        "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build && pnpm smoke"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.6.6"
+    }
+}

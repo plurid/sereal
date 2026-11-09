@@ -1,0 +1,24 @@
+{
+    "description": "custom type at current version",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "origin": {
+                "$": "test.Point@2",
+                "v": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            "points": [
+                {
+                    "$": "test.Point@2",
+                    "v": {
+                        "x": 1,
+                        "y": -1
+                    }
+                }
+            ]
+        }
+    }
+}

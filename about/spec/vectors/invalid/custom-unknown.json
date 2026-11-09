@@ -1,0 +1,11 @@
+{
+    "description": "unregistered custom type",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Unknown",
+            "v": {}
+        }
+    },
+    "error": "UNKNOWN_TYPE"
+}

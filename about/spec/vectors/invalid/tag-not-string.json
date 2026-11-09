@@ -1,0 +1,10 @@
+{
+    "description": "\"$\" is not a string",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": 1
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

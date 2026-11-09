@@ -1,0 +1,18 @@
+{
+    "description": "plain object with a \"$\" member is escaped",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "object",
+            "v": {
+                "$": "not a tag",
+                "other": {
+                    "$": "object",
+                    "v": {
+                        "$": 1
+                    }
+                }
+            }
+        }
+    }
+}

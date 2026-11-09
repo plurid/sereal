@@ -1,0 +1,20 @@
+{
+    "description": "v1 payload is migrated to v2",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point",
+            "v": [3, 4]
+        }
+    },
+    "canonical": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@2",
+            "v": {
+                "x": 3,
+                "y": 4
+            }
+        }
+    }
+}

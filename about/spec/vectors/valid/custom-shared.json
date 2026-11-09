@@ -1,0 +1,20 @@
+{
+    "description": "shared custom instance",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "test.Point@2",
+                "id": 1,
+                "v": {
+                    "x": 1,
+                    "y": 2
+                }
+            },
+            {
+                "$": "ref",
+                "v": 1
+            }
+        ]
+    }
+}

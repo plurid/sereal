@@ -1,0 +1,20 @@
+{
+    "description": "valid and invalid dates",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "date",
+                "v": "2026-11-09T06:00:00.000Z"
+            },
+            {
+                "$": "date",
+                "v": null
+            },
+            {
+                "$": "date",
+                "v": "+275760-09-13T00:00:00.000Z"
+            }
+        ]
+    }
+}

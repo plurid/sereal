@@ -1,0 +1,32 @@
+{
+    "description": "cycles through map and set",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "map",
+            "id": 1,
+            "v": [
+                [
+                    "me",
+                    {
+                        "$": "ref",
+                        "v": 1
+                    }
+                ],
+                [
+                    "set",
+                    {
+                        "$": "set",
+                        "id": 2,
+                        "v": [
+                            {
+                                "$": "ref",
+                                "v": 2
+                            }
+                        ]
+                    }
+                ]
+            ]
+        }
+    }
+}

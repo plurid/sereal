@@ -1,0 +1,27 @@
+{
+    "description": "ids follow depth-first first-encounter order",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "first": {
+                "$": "object",
+                "id": 1,
+                "v": {
+                    "inner": {
+                        "$": "array",
+                        "id": 2,
+                        "v": []
+                    }
+                }
+            },
+            "second": {
+                "$": "ref",
+                "v": 2
+            },
+            "third": {
+                "$": "ref",
+                "v": 1
+            }
+        }
+    }
+}

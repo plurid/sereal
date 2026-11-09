@@ -1,0 +1,5 @@
+{
+    "description": "document is not an object",
+    "document": [1, 2],
+    "error": "INVALID_DOCUMENT"
+}

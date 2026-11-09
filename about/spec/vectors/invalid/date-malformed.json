@@ -1,0 +1,11 @@
+{
+    "description": "date payload is not a date",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "date",
+            "v": "yesterday"
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

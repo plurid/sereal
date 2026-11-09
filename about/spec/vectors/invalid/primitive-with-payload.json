@@ -1,0 +1,11 @@
+{
+    "description": "primitive tag with payload",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "nan",
+            "v": 1
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

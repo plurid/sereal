@@ -1,0 +1,25 @@
+{
+    "description": "shared object gets an id and a ref",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "a": {
+                "$": "object",
+                "id": 1,
+                "v": {
+                    "shared": true
+                }
+            },
+            "b": {
+                "$": "ref",
+                "v": 1
+            },
+            "list": [
+                {
+                    "$": "ref",
+                    "v": 1
+                }
+            ]
+        }
+    }
+}

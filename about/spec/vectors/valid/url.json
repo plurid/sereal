@@ -1,0 +1,10 @@
+{
+    "description": "URL",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "url",
+            "v": "https://plurid.com/sereal?x=1#y"
+        }
+    }
+}

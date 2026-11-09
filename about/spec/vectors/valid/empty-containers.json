@@ -1,0 +1,10 @@
+{
+    "description": "empty containers",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "o": {},
+            "a": []
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "description": "bigint payload is a number",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "bigint",
+            "v": 12
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

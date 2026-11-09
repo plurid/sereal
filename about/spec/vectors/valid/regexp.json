@@ -1,0 +1,13 @@
+{
+    "description": "regular expression",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "regexp",
+            "v": {
+                "source": "^a+b$",
+                "flags": "gi"
+            }
+        }
+    }
+}

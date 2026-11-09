@@ -1,0 +1,7 @@
+{
+    "description": "missing $sereal",
+    "document": {
+        "root": 1
+    },
+    "error": "INVALID_DOCUMENT"
+}

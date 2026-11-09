@@ -1,0 +1,16 @@
+{
+    "description": "plain arrays and objects",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "list": [1, [2, [3]]],
+            "deep": {
+                "a": {
+                    "b": {
+                        "c": "d"
+                    }
+                }
+            }
+        }
+    }
+}

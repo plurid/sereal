@@ -1,0 +1,20 @@
+{
+    "description": "big integers",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "bigint",
+                "v": "0"
+            },
+            {
+                "$": "bigint",
+                "v": "-12345678901234567890"
+            },
+            {
+                "$": "bigint",
+                "v": "9007199254740993"
+            }
+        ]
+    }
+}

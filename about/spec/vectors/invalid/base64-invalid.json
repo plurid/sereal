@@ -1,0 +1,11 @@
+{
+    "description": "invalid base64",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "u8",
+            "v": "not base64!"
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

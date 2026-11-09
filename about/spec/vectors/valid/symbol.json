@@ -1,0 +1,10 @@
+{
+    "description": "registered symbol",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "symbol",
+            "v": "app.key"
+        }
+    }
+}

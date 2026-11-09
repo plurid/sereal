@@ -1,0 +1,40 @@
+{
+    "description": "Temporal values",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "instant": {
+                "$": "instant",
+                "v": "2026-11-09T06:00:00Z"
+            },
+            "zoned": {
+                "$": "zoneddatetime",
+                "v": "2026-11-09T08:00:00+02:00[Europe/Bucharest]"
+            },
+            "date": {
+                "$": "plaindate",
+                "v": "2026-11-09"
+            },
+            "time": {
+                "$": "plaintime",
+                "v": "08:30:00"
+            },
+            "datetime": {
+                "$": "plaindatetime",
+                "v": "2026-11-09T08:30:00"
+            },
+            "yearMonth": {
+                "$": "plainyearmonth",
+                "v": "2026-11"
+            },
+            "monthDay": {
+                "$": "plainmonthday",
+                "v": "11-09"
+            },
+            "duration": {
+                "$": "duration",
+                "v": "P1Y2M3DT4H5M6S"
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "description": "error with cause",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "error",
+            "v": {
+                "name": "TypeError",
+                "message": "boom",
+                "cause": {
+                    "$": "error",
+                    "v": {
+                        "name": "Error",
+                        "message": "inner"
+                    }
+                }
+            }
+        }
+    }
+}

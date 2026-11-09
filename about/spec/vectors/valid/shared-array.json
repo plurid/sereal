@@ -1,0 +1,17 @@
+{
+    "description": "shared array",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "array",
+                "id": 1,
+                "v": [1, 2]
+            },
+            {
+                "$": "ref",
+                "v": 1
+            }
+        ]
+    }
+}

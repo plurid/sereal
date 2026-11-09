@@ -1,0 +1,8 @@
+{
+    "description": "unsupported format version",
+    "document": {
+        "$sereal": 2,
+        "root": 1
+    },
+    "error": "INVALID_DOCUMENT"
+}

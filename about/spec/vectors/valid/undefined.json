@@ -1,0 +1,16 @@
+{
+    "description": "undefined in object and array",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "missing": {
+                "$": "undefined"
+            },
+            "list": [
+                {
+                    "$": "undefined"
+                }
+            ]
+        }
+    }
+}

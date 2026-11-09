@@ -1,0 +1,11 @@
+{
+    "description": "bigint with leading zero",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "bigint",
+            "v": "012"
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

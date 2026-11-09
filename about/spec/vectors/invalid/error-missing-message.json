@@ -1,0 +1,13 @@
+{
+    "description": "error without message",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "error",
+            "v": {
+                "name": "Error"
+            }
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

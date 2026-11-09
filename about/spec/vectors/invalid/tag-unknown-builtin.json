@@ -1,0 +1,11 @@
+{
+    "description": "unknown built-in tag",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "quaternion",
+            "v": [0, 0, 0, 1]
+        }
+    },
+    "error": "UNKNOWN_TYPE"
+}

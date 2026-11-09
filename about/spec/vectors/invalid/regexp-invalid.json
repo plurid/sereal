@@ -1,0 +1,14 @@
+{
+    "description": "invalid regular expression",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "regexp",
+            "v": {
+                "source": "(",
+                "flags": ""
+            }
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

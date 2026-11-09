@@ -1,0 +1,21 @@
+{
+    "description": "non-finite and negative zero",
+    "document": {
+        "$sereal": 1,
+        "root": [
+            {
+                "$": "nan"
+            },
+            {
+                "$": "inf"
+            },
+            {
+                "$": "-inf"
+            },
+            {
+                "$": "-0"
+            },
+            0
+        ]
+    }
+}

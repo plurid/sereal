@@ -1,0 +1,20 @@
+{
+    "description": "explicit @1 is accepted and migrated",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@1",
+            "v": [5, 6]
+        }
+    },
+    "canonical": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@2",
+            "v": {
+                "x": 5,
+                "y": 6
+            }
+        }
+    }
+}

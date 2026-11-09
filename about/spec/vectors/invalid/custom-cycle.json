@@ -1,0 +1,18 @@
+{
+    "description": "cycle through a custom type",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "test.Point@2",
+            "id": 1,
+            "v": {
+                "x": {
+                    "$": "ref",
+                    "v": 1
+                },
+                "y": 0
+            }
+        }
+    },
+    "error": "UNSUPPORTED_CYCLE"
+}

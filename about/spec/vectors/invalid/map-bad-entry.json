@@ -1,0 +1,11 @@
+{
+    "description": "map entry is not a pair",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "map",
+            "v": [[1]]
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}

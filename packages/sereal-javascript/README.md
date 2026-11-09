@@ -5,172 +5,124 @@
     <a target="_blank" href="https://github.com/plurid/sereal/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-DEL-blue.svg?colorB=1380C3&style=for-the-badge" alt="License: DEL">
     </a>
+    <a target="_blank" href="https://www.npmjs.com/package/@plurid/sereal">
+        <img src="https://img.shields.io/npm/v/@plurid/sereal.svg?logo=npm&colorB=1380C3&style=for-the-badge" alt="Version">
+    </a>
 </p>
 
-
-
 <h1 align="center">
-    sereal
+    @plurid/sereal
 </h1>
-
 
 <h3 align="center">
     Real (Values and Objects) Serialization
 </h3>
 
+TypeScript implementation of the `sereal` specification. Serializes rich runtime values (primitives, built-ins, custom classes, shared references, and cycles) into human-readable, diffable JSON documents and reconstructs them safely.
 
+---
 
 ### Contents
 
-+ [About](#about)
-+ [Install](#install)
-+ [Usage](#usage)
-+ [Packages](#packages)
-+ [Codeophon](#codeophon)
+- [Features](#features)
+- [Install](#install)
+- [Usage](#usage)
+- [Specification](#specification)
+- [License](#license)
 
+---
 
+## Features
 
-## About
+- **Format v1**: Human-readable, diffable JSON envelope (`$sereal: 1`).
+- **Comprehensive Built-ins**: `BigInt`, `Date`, `RegExp`, `URL`, `Map`, `Set`, `Error` (with `cause` chains and `AggregateError`), `ArrayBuffer`, `DataView`, all TypedArrays (`Float16Array` through `BigUint64Array`), and full TC39 `Temporal` support.
+- **Special Values**: `undefined`, `NaN`, `+Infinity`, `-Infinity`, `-0`, registered symbols (`Symbol.for`).
+- **No Path Coupling**: Objects carry type tags; instances are recognized at any arbitrary depth or container.
+- **Reference Preservation**: Shared object identities and cycles in objects, arrays, maps, and sets are retained via deterministic depth-first `id`/`ref` tagging.
+- **Class Support**:
+  - Class-owned via `toSereal`, `fromSereal`, `serealType` symbols.
+  - External / 3rd-party via `defineType()`.
+- **Evolvable Data**: Per-type versions with automatic forward migrations (`1 -> 2 -> 3`).
+- **Standard Schema Integration**: Optional payload validation using any Standard Schema v1 library ([Valibot](https://valibot.dev), [Zod](https://zod.dev), [ArkType](https://arktype.io), etc.).
+- **Timeline Engine**: Opt-in undo/redo history (`@plurid/sereal/timeline`) using immutable encoded snapshots.
+- **Secure by Default**: Prototype pollution guarded, depth-bounded (`maxDepth`), strict constructor allowlist.
 
-`sereal` provides utility for the serialization of regular primitives (such as boolean, number, string), and also for the serialization of objects.
-
-In order for an object to be serialized with `sereal` it must be a `serealable object`, that is, it must implement the interface
-
-``` typescript
-interface SerealableObject<S = any> {
-    toSereal(): S;
-    loadSereal(state: S): void;
-}
-```
-
-The `toSereal()` and `loadSereal()` methods will be used by `Sereal` to serialize and instantiate the serealable object.
-
-
+---
 
 ## Install
 
-To install run
-
-``` bash
+```bash
+# npm
 npm install @plurid/sereal
+
+# pnpm
+pnpm add @plurid/sereal
+
+# bun
+bun add @plurid/sereal
+
+# deno
+deno add jsr:@plurid/sereal
 ```
 
-or
-
-``` bash
-yarn add @plurid/sereal
-```
-
-
+---
 
 ## Usage
 
+```typescript
+import { createSereal, defineType, toSereal, fromSereal, serealType } from '@plurid/sereal';
 
-``` typescript
-import Sereal, {
-    SerealableObject,
-} from '@plurid/sereal';
+// 1. Symbol Protocol for classes you own
+class Point {
+    static readonly [serealType] = { name: 'geo.Point' };
 
+    constructor(
+        readonly x: number,
+        readonly y: number,
+    ) {}
 
-class SomeSereal implements SerealableObject<any> {
-    private value = 23;
-
-    public increase() {
-        this.value += 1;
+    [toSereal]() {
+        return { x: this.x, y: this.y };
     }
 
-    public toSereal() {
-        return {
-            value: this.value,
-        };
-    }
-
-    public loadSereal(
-        state: any,
-    ) {
-        this.value = state.value;
+    static [fromSereal](data: { x: number; y: number }) {
+        return new Point(data.x, data.y);
     }
 }
 
-const main = () => {
-    const sereal = new Sereal();
-
-    sereal.sign({
-        SomeSereal: {
-            object: SomeSereal,
-            fields: [
-                'someSereal',
-                'some.nested.sereal',
-            ],
-        },
-    });
-
-    const someSereal = new SomeSereal();
-    const someNestedSereal = new SomeSereal();
-
-    sereal.step({
-        someSereal: someSereal,
-        some: {
-            nested: {
-                sereal: someNestedSereal,
-            },
-        },
-    });
-
-    someSereal.increase();
-    someSereal.increase();
-
-    // `extract` contains the serealized value
-    // {
-    //     someSereal: {
-    //         value: 25,
-    //     },
-    //     some: {
-    //         nested: {
-    //             sereal: {
-    //                 value: 23,
-    //             },
-    //         },
-    //     },
-    // }
-    const extract = sereal.extract();
-
-    const anotherSereal = new Sereal();
-    anotherSereal.sign({
-        SomeSereal: {
-            object: SomeSereal,
-            fields: [
-                'someSereal',
-                'some.nested.sereal',
-            ],
-        },
-    });
-
-    // `intract` injects the `sereal` `extract` into the `anotherSereal`
-    anotherSereal.intract(extract);
-
-    // `anotherSereal` has the same state as `sereal`
-    const extractAnotherSereal = anotherSereal.extract();
+// 2. defineType for 3rd-party classes
+class Money {
+    constructor(readonly cents: bigint) {}
 }
 
-main();
+const MoneyType = defineType(Money, {
+    name: 'app.Money',
+    encode: (m) => m.cents.toString(),
+    decode: (str: string) => new Money(BigInt(str)),
+});
+
+const sereal = createSereal({ types: [Point, MoneyType] });
+
+const document = sereal.encode({
+    origin: new Point(0, 0),
+    balance: new Money(5000n),
+    created: Temporal.Now.instant(),
+});
+
+const restored = sereal.decode(document);
 ```
 
+For full documentation, see the [repository root README](../../README.md).
 
+---
 
-## Packages
+## Specification
 
-<a target="_blank" href="https://www.npmjs.com/package/@plurid/sereal">
-    <img src="https://img.shields.io/npm/v/@plurid/sereal.svg?logo=npm&colorB=1380C3&style=for-the-badge" alt="Version">
-</a>
+Language-neutral format specification and test vectors are documented in [`about/spec/sereal-format-v1.md`](../../about/spec/sereal-format-v1.md).
 
-[@plurid/sereal][sereal] • sereal
-
-[sereal]: https://github.com/plurid/plurid/tree/master/packages/sereal
-
-
+---
 
 ## [Codeophon](https://github.com/ly3xqhl8g9/codeophon)
 
-+ licensing: [delicense](https://github.com/ly3xqhl8g9/delicense)
-+ versioning: [αver](https://github.com/ly3xqhl8g9/alpha-versioning)
+- licensing: [delicense](https://github.com/ly3xqhl8g9/delicense)
+- versioning: [αver](https://github.com/ly3xqhl8g9/alpha-versioning)

@@ -1,0 +1,23 @@
+{
+    "description": "aggregate error",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "error",
+            "v": {
+                "name": "AggregateError",
+                "message": "many",
+                "errors": [
+                    {
+                        "$": "error",
+                        "v": {
+                            "name": "RangeError",
+                            "message": "a"
+                        }
+                    },
+                    "not an error"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "description": "primitive tag with id",
+    "document": {
+        "$sereal": 1,
+        "root": {
+            "$": "undefined",
+            "id": 1
+        }
+    },
+    "error": "INVALID_DOCUMENT"
+}
