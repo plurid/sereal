@@ -19,6 +19,19 @@ describe('conformance vectors', () => {
                 const content = JSON.parse(readFileSync(join(validDir, file), 'utf-8'));
                 const { document, canonical } = content;
 
+                if (file === 'binary.json' && typeof Float16Array === 'undefined') {
+                    expect(() => sereal.decode(document)).toThrowError(
+                        expect.objectContaining({ code: 'RUNTIME_UNSUPPORTED' }),
+                    );
+                    return;
+                }
+                if (file === 'temporal.json' && typeof Temporal === 'undefined') {
+                    expect(() => sereal.decode(document)).toThrowError(
+                        expect.objectContaining({ code: 'RUNTIME_UNSUPPORTED' }),
+                    );
+                    return;
+                }
+
                 const decoded = sereal.decode(document);
                 const reEncoded = sereal.encode(decoded);
 

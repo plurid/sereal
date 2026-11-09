@@ -115,12 +115,14 @@ describe('coverage edge cases', () => {
     });
 
     it('decodes malformed temporal values', () => {
+        const expectedCode =
+            typeof Temporal !== 'undefined' ? 'INVALID_DOCUMENT' : 'RUNTIME_UNSUPPORTED';
         expect(() =>
             decode({
                 $sereal: 1,
                 root: { $: 'instant', v: 'not-an-instant' },
             }),
-        ).toThrowError(expect.objectContaining({ code: 'INVALID_DOCUMENT' }));
+        ).toThrowError(expect.objectContaining({ code: expectedCode }));
     });
 });
 // #endregion module

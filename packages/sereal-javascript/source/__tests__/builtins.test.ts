@@ -126,24 +126,43 @@ describe('built-in types', () => {
         expect([view.getUint8(0), view.getUint8(1)]).toEqual([8, 7]);
     });
 
-    it.each([
-        ['Uint8Array', new Uint8Array([0, 1, 255])],
-        ['Uint8ClampedArray', new Uint8ClampedArray([0, 128, 255])],
-        ['Int8Array', new Int8Array([-128, 0, 127])],
-        ['Uint16Array', new Uint16Array([0, 65535])],
-        ['Int16Array', new Int16Array([-32768, 32767])],
-        ['Uint32Array', new Uint32Array([0, 2 ** 32 - 1])],
-        ['Int32Array', new Int32Array([-(2 ** 31), 2 ** 31 - 1])],
-        ['Float16Array', new Float16Array([1.5, -2, Number.POSITIVE_INFINITY])],
-        ['Float32Array', new Float32Array([1.5, Number.NaN, -0])],
-        ['Float64Array', new Float64Array([Math.PI, Number.MIN_VALUE])],
-        ['BigInt64Array', new BigInt64Array([-(2n ** 63n), 2n ** 63n - 1n])],
-        ['BigUint64Array', new BigUint64Array([0n, 2n ** 64n - 1n])],
-    ])('round-trips %s', (_name, array) => {
+    const typedArrays = [
+        ['Uint8Array', () => new Uint8Array([0, 1, 255])],
+        ['Uint8ClampedArray', () => new Uint8ClampedArray([0, 128, 255])],
+        ['Int8Array', () => new Int8Array([-128, 0, 127])],
+        ['Uint16Array', () => new Uint16Array([0, 65535])],
+        ['Int16Array', () => new Int16Array([-32768, 32767])],
+        ['Uint32Array', () => new Uint32Array([0, 2 ** 32 - 1])],
+        ['Int32Array', () => new Int32Array([-(2 ** 31), 2 ** 31 - 1])],
+        ...(typeof Float16Array !== 'undefined'
+            ? [
+                  [
+                      'Float16Array',
+                      () => new Float16Array([1.5, -2, Number.POSITIVE_INFINITY]),
+                  ] as const,
+              ]
+            : []),
+        ['Float32Array', () => new Float32Array([1.5, Number.NaN, -0])],
+        ['Float64Array', () => new Float64Array([Math.PI, Number.MIN_VALUE])],
+        ['BigInt64Array', () => new BigInt64Array([-(2n ** 63n), 2n ** 63n - 1n])],
+        ['BigUint64Array', () => new BigUint64Array([0n, 2n ** 64n - 1n])],
+    ] as const;
+
+    it.each(typedArrays)('round-trips %s', (_name, create) => {
+        const array = create();
         const back = roundTrip(array);
         expect(back.constructor).toBe(array.constructor);
         expect(back).toEqual(array);
     });
+
+    it.runIf(typeof Float16Array === 'undefined')(
+        'fails with RUNTIME_UNSUPPORTED when Float16Array is missing',
+        () => {
+            expect(() => decode({ $sereal: 1, root: { $: 'f16', v: 'ADw=' } })).toThrowError(
+                expect.objectContaining({ code: 'RUNTIME_UNSUPPORTED' }),
+            );
+        },
+    );
 
     it('encodes only the viewed bytes of a typed array', () => {
         const buffer = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8]).buffer;
@@ -157,7 +176,7 @@ describe('built-in types', () => {
         expect(new TextDecoder().decode(back)).toBe('hello');
     });
 
-    it('round-trips Temporal values', () => {
+    it.runIf(typeof Temporal !== 'undefined')('round-trips Temporal values', () => {
         const values = {
             instant: Temporal.Instant.from('2026-11-09T06:00:00Z'),
             zoned: Temporal.ZonedDateTime.from('2026-11-09T08:00:00+02:00[Europe/Bucharest]'),
@@ -181,6 +200,15 @@ describe('built-in types', () => {
             v: '2026-11-09T08:00:00+02:00[Europe/Bucharest]',
         });
     });
+
+    it.runIf(typeof Temporal === 'undefined')(
+        'fails with RUNTIME_UNSUPPORTED when Temporal is missing',
+        () => {
+            expect(() =>
+                decode({ $sereal: 1, root: { $: 'instant', v: '2026-11-09T06:00:00Z' } }),
+            ).toThrowError(expect.objectContaining({ code: 'RUNTIME_UNSUPPORTED' }));
+        },
+    );
 
     it('escapes plain objects that own a "$" key', () => {
         const value = { $: 'not a tag', nested: { $: { $: 1 } } };
