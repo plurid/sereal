@@ -21,6 +21,6 @@
         "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build && pnpm smoke"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.6.6"
+        "@biomejs/biome": "^2.6.7"
     }
 }
